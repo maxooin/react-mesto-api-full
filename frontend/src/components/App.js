@@ -62,7 +62,7 @@ function App() {
   function handleLogin(email, pwd) {
     Auth.login(email, pwd)
       .then((res) => {
-        if (res.token) {
+        if (res) {
           localStorage.setItem('token', res.token);
           login();
           setEmail(email)
@@ -83,7 +83,7 @@ function App() {
   function handleSingUp(email, pwd) {
     Auth.singup(email, pwd)
       .then((res) => {
-        if (res.data) {
+        if (res) {
           setInfoIcon(okIcon)
           setInfoText('Вы успешно зарегистрировались!')
           navigate('/singin')

@@ -14,7 +14,7 @@ class Api {
     return fetch(`${this._url}/users/me`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       }
     })
@@ -25,7 +25,7 @@ class Api {
     return fetch(`${this._url}/cards`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       }
     })
@@ -36,7 +36,7 @@ class Api {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -51,7 +51,7 @@ class Api {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -66,7 +66,7 @@ class Api {
     return fetch(`${this._url}/cards/likes/${cardId}`, {
       method: isLiked ? 'PUT' : 'DELETE',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       }
     })
@@ -77,7 +77,7 @@ class Api {
     return fetch(`${this._url}/cards/${id}`, {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       }
     })
@@ -88,7 +88,7 @@ class Api {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
