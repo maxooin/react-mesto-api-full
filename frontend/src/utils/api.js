@@ -17,7 +17,6 @@ class Api {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
       }
     })
       .then(this._checkResponse);
@@ -30,7 +29,6 @@ class Api {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
       }
     })
       .then(this._checkResponse);
@@ -43,7 +41,6 @@ class Api {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
       },
       body: JSON.stringify({
         name: name,
@@ -60,7 +57,6 @@ class Api {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
       },
       body: JSON.stringify({
         name: item.name,
@@ -77,7 +73,6 @@ class Api {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
       }
     })
       .then(this._checkResponse);
@@ -90,7 +85,6 @@ class Api {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
       }
     })
       .then(this._checkResponse);
@@ -103,7 +97,6 @@ class Api {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
       },
       body: JSON.stringify({
         avatar: item.avatar
