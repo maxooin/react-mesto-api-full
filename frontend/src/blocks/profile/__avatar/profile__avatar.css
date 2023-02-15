@@ -1,0 +1,22 @@
+.profile__avatar {
+  width: 120px;
+  height: 120px;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+}
+
+.profile__avatar::after {
+  position: absolute;
+  content: '';
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, .8) url("../../../image/icon/avatar-edit.svg") no-repeat center;
+  visibility: hidden;
+}
+
+.profile__avatar:hover::after {
+  visibility: visible;
+}
