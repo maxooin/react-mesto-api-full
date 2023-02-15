@@ -13,9 +13,11 @@ class Api {
   getUserInfoApi() {
     return fetch(`${this._url}/users/me`, {
       method: "GET",
+      credentials: 'include',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
       }
     })
       .then(this._checkResponse);
@@ -24,9 +26,11 @@ class Api {
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       method: "GET",
+      credentials: 'include',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
       }
     })
       .then(this._checkResponse);
@@ -35,9 +39,11 @@ class Api {
   setUserInfoApi(name, job) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
       body: JSON.stringify({
         name: name,
@@ -50,9 +56,11 @@ class Api {
   addNewElement(item) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
+      credentials: 'include',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
       body: JSON.stringify({
         name: item.name,
@@ -65,9 +73,11 @@ class Api {
   changeLikeCardStatus(cardId, isLiked) {
     return fetch(`${this._url}/cards/likes/${cardId}`, {
       method: isLiked ? 'PUT' : 'DELETE',
+      credentials: 'include',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
       }
     })
       .then(this._checkResponse);
@@ -76,9 +86,11 @@ class Api {
   deleteElement(id) {
     return fetch(`${this._url}/cards/${id}`, {
       method: 'DELETE',
+      credentials: 'include',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
       }
     })
       .then(this._checkResponse);
@@ -87,9 +99,11 @@ class Api {
   changeAvatar(item) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
       body: JSON.stringify({
         avatar: item.avatar
