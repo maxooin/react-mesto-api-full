@@ -100,7 +100,7 @@ class Api {
 }
 
 const api = new Api({
-  url: 'https://api.maxooin.nomoredomains.work',
+  url: 'https://api.maxooin.nomoredomains.work/',
 });
 
 export default api;
