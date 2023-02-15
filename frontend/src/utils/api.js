@@ -11,7 +11,7 @@ class Api {
   }
 
   getUserInfoApi() {
-    return fetch(`${this._url}users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
@@ -22,7 +22,7 @@ class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this._url}cards`, {
+    return fetch(`${this._url}/cards`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
@@ -33,7 +33,7 @@ class Api {
   }
 
   setUserInfoApi(name, job) {
-    return fetch(`${this._url}users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
@@ -48,7 +48,7 @@ class Api {
   }
 
   addNewElement(item) {
-    return fetch(`${this._url}cards`, {
+    return fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
@@ -63,7 +63,7 @@ class Api {
   }
 
   changeLikeCardStatus(cardId, isLiked) {
-    return fetch(`${this._url}cards/likes/${cardId}`, {
+    return fetch(`${this._url}/cards/likes/${cardId}`, {
       method: isLiked ? 'PUT' : 'DELETE',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
@@ -74,7 +74,7 @@ class Api {
   }
 
   deleteElement(id) {
-    return fetch(`${this._url}cards/${id}`, {
+    return fetch(`${this._url}/cards/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
@@ -85,7 +85,7 @@ class Api {
   }
 
   changeAvatar(item) {
-    return fetch(`${this._url}users/me/avatar`, {
+    return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`,
@@ -100,7 +100,7 @@ class Api {
 }
 
 const api = new Api({
-  url: 'https://api.maxooin.nomoredomains.work/',
+  url: 'https://api.maxooin.nomoredomains.work',
 });
 
 export default api;
