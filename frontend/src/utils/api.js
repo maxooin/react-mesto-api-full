@@ -1,7 +1,6 @@
 class Api {
   constructor(apiSetting) {
     this._url = apiSetting.url;
-    this._headers = apiSetting.headers;
   }
 
   _checkResponse(res) {
@@ -14,7 +13,10 @@ class Api {
   getUserInfoApi() {
     return fetch(`${this._url}users/me`, {
       method: "GET",
-      headers: this._headers
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json'
+      }
     })
       .then(this._checkResponse);
   }
@@ -22,7 +24,10 @@ class Api {
   getInitialCards() {
     return fetch(`${this._url}cards`, {
       method: "GET",
-      headers: this._headers
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json'
+      }
     })
       .then(this._checkResponse);
   }
@@ -30,7 +35,10 @@ class Api {
   setUserInfoApi(name, job) {
     return fetch(`${this._url}users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name: name,
         about: job
@@ -42,7 +50,10 @@ class Api {
   addNewElement(item) {
     return fetch(`${this._url}cards`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name: item.name,
         link: item.link
@@ -54,7 +65,10 @@ class Api {
   changeLikeCardStatus(cardId, isLiked) {
     return fetch(`${this._url}cards/likes/${cardId}`, {
       method: isLiked ? 'PUT' : 'DELETE',
-      headers: this._headers
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json'
+      }
     })
       .then(this._checkResponse);
   }
@@ -62,7 +76,10 @@ class Api {
   deleteElement(id) {
     return fetch(`${this._url}cards/${id}`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json'
+      }
     })
       .then(this._checkResponse);
   }
@@ -70,7 +87,10 @@ class Api {
   changeAvatar(item) {
     return fetch(`${this._url}users/me/avatar`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         avatar: item.avatar
       })
@@ -80,11 +100,7 @@ class Api {
 }
 
 const api = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-48/',
-  headers: {
-    authorization: 'dc493407-c65d-4755-8236-dab7c7a9e0c4',
-    'Content-Type': 'application/json'
-  }
+  url: 'https://api.maxooin.nomoredomains.work',
 });
 
 export default api;
