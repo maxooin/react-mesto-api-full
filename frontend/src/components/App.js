@@ -194,7 +194,7 @@ function App() {
 
   useEffect(() => {
     checkToken();
-  }, [])
+  }, [checkToken])
 
   return (
     <div className="app">
