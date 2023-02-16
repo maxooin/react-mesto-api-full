@@ -98,17 +98,17 @@ function App() {
   }
 
   function checkToken() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      Auth.checkToken(token)
-        .then((res) => {
-          if (res) {
-            setEmail(res.data.email);
-            login()
-            navigate('/')
-          }
-        });
-    }
+    Auth.checkToken()
+      .then((res) => {
+        if (res) {
+          setEmail(res.data.email);
+          login()
+          navigate('/')
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   function handleUpdateUser(item) {
@@ -194,7 +194,7 @@ function App() {
 
   useEffect(() => {
     checkToken();
-  }, [checkToken])
+  }, [])
 
   return (
     <div className="app">

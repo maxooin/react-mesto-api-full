@@ -7,25 +7,22 @@ const {
 } = process.env;
 
 function auth(req, res, next) {
-  const {authorization} = req.headers;
+  const { cookies } = req;
 
-  if (!authorization || !authorization.startsWith('Bearer')) {
-    throw new UnauthorizedError('Необходима авторизация!');
+  if (cookies && cookies.jwt) {
+    const token = cookies.jwt;
+    let payload;
+
+    try {
+      payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret');
+    } catch (e) {
+      next(new UnauthorizedError('Передан не верифицированый токен'));
+    }
+    req.user = payload;
+    next();
+  } else {
+    next(new UnauthorizedError('Отсутствует авторизационный заголовок или cookies'));
   }
-
-  const token = authorization.replace('Bearer ', '');
-  let payload;
-
-  try {
-    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key');
-  } catch (err) {
-    next(new UnauthorizedError('Необходима авторизация!'));
-    return;
-  }
-
-  req.user = payload;
-
-  next();
 }
 
 export default auth;

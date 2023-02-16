@@ -1,4 +1,5 @@
-export const BASE_URL = "https://api.maxooin.nomoredomains.work"
+// export const BASE_URL = "https://api.maxooin.nomoredomains.work"
+export const BASE_URL = "http://localhost:3000"
 
 function checkResponse(res) {
   if (res.ok) {
@@ -38,14 +39,14 @@ export function login(email, password) {
     .then(checkResponse)
 }
 
-export function checkToken(token) {
+export function checkToken() {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     credentials: 'include',
     headers: {
       'Accept': 'application/json',
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
+      // "Authorization": `Bearer ${token}`
     }
   })
     .then(checkResponse)

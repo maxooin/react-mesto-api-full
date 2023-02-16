@@ -15,7 +15,7 @@ class Api {
       method: "GET",
       credentials: 'include',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       }
     })
@@ -27,7 +27,7 @@ class Api {
       method: "GET",
       credentials: 'include',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       }
     })
@@ -39,7 +39,7 @@ class Api {
       method: 'PATCH',
       credentials: 'include',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -55,7 +55,7 @@ class Api {
       method: 'POST',
       credentials: 'include',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -71,7 +71,7 @@ class Api {
       method: isLiked ? 'PUT' : 'DELETE',
       credentials: 'include',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       }
     })
@@ -83,7 +83,7 @@ class Api {
       method: 'DELETE',
       credentials: 'include',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       }
     })
@@ -95,7 +95,7 @@ class Api {
       method: 'PATCH',
       credentials: 'include',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -107,7 +107,8 @@ class Api {
 }
 
 const api = new Api({
-  url: 'https://api.maxooin.nomoredomains.work',
+  // url: 'https://api.maxooin.nomoredomains.work',
+  url: 'http://localhost:3000'
 });
 
 export default api;
