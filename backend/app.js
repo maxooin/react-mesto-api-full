@@ -5,13 +5,12 @@ import cookieParser from 'cookie-parser';
 import {celebrate, errors, Joi} from 'celebrate';
 import usersRouter from './routes/user.js';
 import cardRouter from './routes/card.js';
-import {createUser, login} from './controllers/user.js';
+import {createUser, login, logout} from './controllers/user.js';
 import auth from './middlewares/auth.js';
 import NotFoundError from './errors/NotFoundError.js';
 import centralizedError from './middlewares/centralizedError.js';
 import urlRegex from './utils/constants.js';
 import {errorLogger, requestLogger} from './middlewares/logger.js';
-import {cors} from "./middlewares/cors.js";
 
 const {PORT = 3000} = process.env;
 
@@ -23,8 +22,31 @@ mongoose.connect('mongodb://localhost:27017/mestodb')
   .catch((err) => {
     console.log(`Connection to database was failed with error ${err}`);
   });
+const allowedCors = [
+  'http://localhost:3001',
+  'https://maxooin.nomoredomains.work',
+  'http://maxooin.nomoredomains.work',
+  'https://api.maxooin.nomoredomains.work',
+  'http://api.maxooin.nomoredomains.work'
+]
+app.use((req, res, next) => {
+  const {method} = req;
+  const {origin} = req.headers;
+  const requestHeaders = req.headers['access-control-request-headers'];
+  const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
 
-app.use(cors)
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', true);
+  }
+  if (method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+    return res.end();
+  }
+  return next();
+});
+
 app.use(requestLogger);
 
 app.post('/signin', celebrate({
@@ -37,6 +59,8 @@ app.post('/signin', celebrate({
         .required(),
     }),
 }), login);
+
+app.get('/logout', logout);
 
 app.post('/signup', celebrate({
   body: Joi.object()

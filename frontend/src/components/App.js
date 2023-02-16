@@ -63,7 +63,6 @@ function App() {
     Auth.login(email, pwd)
       .then((res) => {
         if (res) {
-          localStorage.setItem('token', res.token);
           login();
           setEmail(email)
           navigate('/');
@@ -75,9 +74,14 @@ function App() {
   }
 
   function handleLogOut() {
-    setLoggedIn(false);
-    localStorage.removeItem('token');
-    navigate('/singin');
+    Auth.logout()
+      .then((res) => {
+        if (res) {
+          setLoggedIn(false)
+          setEmail('')
+          navigate('/singin');
+        }
+      })
   }
 
   function handleSingUp(email, pwd) {
@@ -101,8 +105,8 @@ function App() {
     Auth.checkToken()
       .then((res) => {
         if (res) {
-          setEmail(res.data.email);
           login()
+          setEmail(res.email);
           navigate('/')
         }
       })
@@ -190,7 +194,7 @@ function App() {
       .catch(err => {
         console.log(err);
       })
-  }, [])
+  }, [loggedIn])
 
   useEffect(() => {
     checkToken();

@@ -1,7 +1,5 @@
 export const BASE_URL = "https://api.maxooin.nomoredomains.work"
 
-// export const BASE_URL = "http://localhost:3000"
-
 function checkResponse(res) {
   if (res.ok) {
     return res.json();
@@ -13,7 +11,6 @@ export function singup(email, password) {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
-      'Accept': 'application/json',
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
@@ -27,8 +24,8 @@ export function singup(email, password) {
 export function login(email, password) {
   return fetch(`${BASE_URL}/signin`, {
     method: "POST",
+    credentials: 'include',
     headers: {
-      'Accept': 'application/json',
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
@@ -40,14 +37,23 @@ export function login(email, password) {
     .then(checkResponse)
 }
 
+export function logout() {
+  return fetch(`${BASE_URL}/logout`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      "Content-Type": "application/json"
+    },
+  })
+    .then(checkResponse)
+}
+
 export function checkToken() {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     credentials: 'include',
     headers: {
-      'Accept': 'application/json',
       "Content-Type": "application/json",
-      // "Authorization": `Bearer ${token}`
     }
   })
     .then(checkResponse)

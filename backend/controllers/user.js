@@ -6,13 +6,10 @@ import UnauthorizedError from '../errors/UnauthorizedError.js';
 import NotFoundError from '../errors/NotFoundError.js';
 import BadRequestError from '../errors/BadRequestError.js';
 import ConflictError from '../errors/ConflictError.js';
+import {JWT_SECRET} from "../middlewares/auth.js";
 
 dotenv.config();
 
-const {
-  NODE_ENV,
-  JWT_SECRET,
-} = process.env;
 
 export function getUsers(req, res, next) {
   User.find({})
@@ -107,8 +104,8 @@ export function updateUserInfo(req, res, next) {
 }
 
 export function updateUserAvatar(req, res, next) {
-  const { avatar } = req.body;
-  User.findByIdAndUpdate(req.user._id, { avatar }, {
+  const {avatar} = req.body;
+  User.findByIdAndUpdate(req.user._id, {avatar}, {
     new: true,
     runValidators: true,
   })
@@ -136,18 +133,24 @@ export function login(req, res, next) {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
-        { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret',
-        { expiresIn: '7d' },
+        {_id: user._id},
+        JWT_SECRET,
+        {expiresIn: '7d'},
       );
-      res.cookie('jwt', token, {
+      return res.cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
         sameSite: true,
-      });
-      res.send({ token });
+        secure: true,
+      }).send({JWT: token});
     })
     .catch(() => {
       next(new UnauthorizedError('Передан неверный логин или пароль'));
     });
+}
+
+export function logout(req, res) {
+  res.clearCookie('jwt').send({
+    message: 'Вышли из аккаунта',
+  });
 }
