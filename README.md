@@ -6,6 +6,6 @@
 
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
-IP: 130.193.38.52
-Frontend: maxooin.nomoredomains.work
-Backend: api.maxooin.nomoredomains.work
+IP: [130.193.38.52]()<br/>
+Frontend: [maxooin.nomoredomains.work]()<br/>
+Backend: [api.maxooin.nomoredomains.work]()
