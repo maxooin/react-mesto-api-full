@@ -1,6 +1,4 @@
-dotenv.config();
-
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
@@ -14,7 +12,9 @@ import NotFoundError from './errors/NotFoundError.js';
 import centralizedError from './middlewares/centralizedError.js';
 import urlRegex from './utils/constants.js';
 import { errorLogger, requestLogger } from './middlewares/logger.js';
-import { cors } from "./middlewares/cors.js";
+import { cors } from './middlewares/cors.js';
+
+dotenv.config();
 
 const { PORT = 3000 } = process.env;
 
@@ -24,10 +24,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 mongoose.connect('mongodb://localhost:27017/mestodb')
   .catch((err) => {
-    console.log(`Connection to database was failed with error ${ err }`);
+    console.log(`Connection to database was failed with error ${err}`);
   });
 
-app.use(cors)
+app.use(cors);
 
 app.use(requestLogger);
 
@@ -78,5 +78,5 @@ app.use(errors());
 app.use(centralizedError);
 
 app.listen(PORT, () => {
-  console.log(`App listen on PORT ${ PORT }`);
+  console.log(`App listen on PORT ${PORT}`);
 });

@@ -1,7 +1,9 @@
 import { Router } from 'express';
 
 import { celebrate, Joi } from 'celebrate';
-import { createCard, deleteCard, dislikeCard, getAllCards, likeCard, } from '../controllers/card.js';
+import {
+  createCard, deleteCard, dislikeCard, getAllCards, likeCard,
+} from '../controllers/card.js';
 import urlRegex from '../utils/constants.js';
 
 const cardRouter = Router();
@@ -23,7 +25,8 @@ cardRouter.post('/', celebrate({
       name: Joi.string()
         .required()
         .min(2)
-        .max(30), link: Joi.string()
+        .max(30),
+      link: Joi.string()
         .required()
         .regex(urlRegex)
         .uri({ scheme: ['http', 'https'] }),

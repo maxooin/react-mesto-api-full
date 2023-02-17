@@ -1,5 +1,3 @@
-dotenv.config();
-
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -9,6 +7,7 @@ import NotFoundError from '../errors/NotFoundError.js';
 import BadRequestError from '../errors/BadRequestError.js';
 import ConflictError from '../errors/ConflictError.js';
 
+dotenv.config();
 const {
   NODE_ENV,
   JWT_SECRET,
@@ -26,12 +25,12 @@ function findUserById(id, res, next) {
       if (user) {
         res.send(user);
       } else {
-        throw new NotFoundError(`Пользователь с указанным _id=${ id } не найден.`);
+        throw new NotFoundError(`Пользователь с указанным _id=${id} не найден.`);
       }
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError(`Переданы некорректные данные: _id=${ id } при запросе информации о пользователе.`));
+        next(new BadRequestError(`Переданы некорректные данные: _id=${id} при запросе информации о пользователе.`));
       } else {
         next(err);
       }
@@ -69,7 +68,7 @@ export function createUser(req, res, next) {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError(`Переданы некорректные данные при создании пользователя: ${ Object.values(err.errors)[0].message }`));
+        next(new BadRequestError(`Переданы некорректные данные при создании пользователя: ${Object.values(err.errors)[0].message}`));
       } else if (err.code === 11000) {
         next(new ConflictError('Данный email уже занят'));
       } else {
@@ -94,12 +93,12 @@ export function updateUserInfo(req, res, next) {
       if (user) {
         res.send(user);
       } else {
-        throw new NotFoundError(`Пользователь c указанным _id=${ req.user._id } не найден.`);
+        throw new NotFoundError(`Пользователь c указанным _id=${req.user._id} не найден.`);
       }
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError(`Переданы некорректные данные при обновлении пользователя: ${ Object.values(err.errors)[0].message }`));
+        next(new BadRequestError(`Переданы некорректные данные при обновлении пользователя: ${Object.values(err.errors)[0].message}`));
       } else {
         next(err);
       }
@@ -116,7 +115,7 @@ export function updateUserAvatar(req, res, next) {
       if (user) {
         res.send(user);
       } else {
-        throw new NotFoundError(`Пользователь c указанным _id=${ req.user._id } не найден.`);
+        throw new NotFoundError(`Пользователь c указанным _id=${req.user._id} не найден.`);
       }
     })
     .catch((err) => {
