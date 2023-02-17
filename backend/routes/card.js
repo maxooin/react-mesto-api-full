@@ -1,12 +1,13 @@
-import {Router} from 'express';
+import { Router } from 'express';
 
-import {celebrate, Joi} from 'celebrate';
-import {createCard, deleteCard, dislikeCard, getAllCards, likeCard,} from '../controllers/card.js';
+import { celebrate, Joi } from 'celebrate';
+import { createCard, deleteCard, dislikeCard, getAllCards, likeCard, } from '../controllers/card.js';
 import urlRegex from '../utils/constants.js';
 
 const cardRouter = Router();
 
 cardRouter.get('/', getAllCards);
+
 cardRouter.delete('/:cardId', celebrate({
   params: Joi.object({
     cardId: Joi.string()
@@ -15,19 +16,20 @@ cardRouter.delete('/:cardId', celebrate({
       .length(24),
   }),
 }), deleteCard);
+
 cardRouter.post('/', celebrate({
   body: Joi.object()
     .keys({
       name: Joi.string()
         .required()
         .min(2)
-        .max(30),
-      link: Joi.string()
+        .max(30), link: Joi.string()
         .required()
         .regex(urlRegex)
-        .uri({scheme: ['http', 'https']}),
+        .uri({ scheme: ['http', 'https'] }),
     }),
 }), createCard);
+
 cardRouter.put('/likes/:cardId', celebrate({
   params: Joi.object({
     cardId: Joi.string()
@@ -36,6 +38,7 @@ cardRouter.put('/likes/:cardId', celebrate({
       .length(24),
   }),
 }), likeCard);
+
 cardRouter.delete('/likes/:cardId', celebrate({
   params: Joi.object({
     cardId: Joi.string()

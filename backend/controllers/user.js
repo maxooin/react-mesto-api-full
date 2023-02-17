@@ -1,3 +1,5 @@
+dotenv.config();
+
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -6,9 +8,7 @@ import UnauthorizedError from '../errors/UnauthorizedError.js';
 import NotFoundError from '../errors/NotFoundError.js';
 import BadRequestError from '../errors/BadRequestError.js';
 import ConflictError from '../errors/ConflictError.js';
-import {JWT_SECRET} from "../middlewares/auth.js";
-
-dotenv.config();
+import { JWT_SECRET } from "../middlewares/auth.js";
 
 
 export function getUsers(req, res, next) {
@@ -23,12 +23,12 @@ function findUserById(id, res, next) {
       if (user) {
         res.send(user);
       } else {
-        throw new NotFoundError(`Пользователь с указанным _id=${id} не найден.`);
+        throw new NotFoundError(`Пользователь с указанным _id=${ id } не найден.`);
       }
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError(`Переданы некорректные данные: _id=${id} при запросе информации о пользователе.`));
+        next(new BadRequestError(`Переданы некорректные данные: _id=${ id } при запросе информации о пользователе.`));
       } else {
         next(err);
       }
@@ -66,7 +66,7 @@ export function createUser(req, res, next) {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError(`Переданы некорректные данные при создании пользователя: ${Object.values(err.errors)[0].message}`));
+        next(new BadRequestError(`Переданы некорректные данные при создании пользователя: ${ Object.values(err.errors)[0].message }`));
       } else if (err.code === 11000) {
         next(new ConflictError('Данный email уже занят'));
       } else {
@@ -91,12 +91,12 @@ export function updateUserInfo(req, res, next) {
       if (user) {
         res.send(user);
       } else {
-        throw new NotFoundError(`Пользователь c указанным _id=${req.user._id} не найден.`);
+        throw new NotFoundError(`Пользователь c указанным _id=${ req.user._id } не найден.`);
       }
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError(`Переданы некорректные данные при обновлении пользователя: ${Object.values(err.errors)[0].message}`));
+        next(new BadRequestError(`Переданы некорректные данные при обновлении пользователя: ${ Object.values(err.errors)[0].message }`));
       } else {
         next(err);
       }
@@ -104,8 +104,8 @@ export function updateUserInfo(req, res, next) {
 }
 
 export function updateUserAvatar(req, res, next) {
-  const {avatar} = req.body;
-  User.findByIdAndUpdate(req.user._id, {avatar}, {
+  const { avatar } = req.body;
+  User.findByIdAndUpdate(req.user._id, { avatar }, {
     new: true,
     runValidators: true,
   })
@@ -113,7 +113,7 @@ export function updateUserAvatar(req, res, next) {
       if (user) {
         res.send(user);
       } else {
-        throw new NotFoundError(`Пользователь c указанным _id=${req.user._id} не найден.`);
+        throw new NotFoundError(`Пользователь c указанным _id=${ req.user._id } не найден.`);
       }
     })
     .catch((err) => {
@@ -133,16 +133,16 @@ export function login(req, res, next) {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
-        {_id: user._id},
+        { _id: user._id },
         JWT_SECRET,
-        {expiresIn: '7d'},
+        { expiresIn: '7d' },
       );
       return res.cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
         sameSite: true,
         secure: true,
-      }).send({JWT: token});
+      }).send({ JWT: token });
     })
     .catch(() => {
       next(new UnauthorizedError('Передан неверный логин или пароль'));
