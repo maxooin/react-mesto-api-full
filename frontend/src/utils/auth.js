@@ -4,11 +4,11 @@ function checkResponse(res) {
   if (res.ok) {
     return res.json();
   }
-  return Promise.reject(`Ошибка: ${res.status}`);
+  return Promise.reject(`Ошибка: ${ res.status }`);
 }
 
 export function singup(email, password) {
-  return fetch(`${BASE_URL}/signup`, {
+  return fetch(`${ BASE_URL }/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -22,7 +22,7 @@ export function singup(email, password) {
 }
 
 export function login(email, password) {
-  return fetch(`${BASE_URL}/signin`, {
+  return fetch(`${ BASE_URL }/signin`, {
     method: "POST",
     credentials: 'include',
     headers: {
@@ -38,7 +38,7 @@ export function login(email, password) {
 }
 
 export function logout() {
-  return fetch(`${BASE_URL}/logout`, {
+  return fetch(`${ BASE_URL }/logout`, {
     method: 'GET',
     credentials: 'include',
     headers: {
@@ -49,7 +49,7 @@ export function logout() {
 }
 
 export function checkToken() {
-  return fetch(`${BASE_URL}/users/me`, {
+  return fetch(`${ BASE_URL }/users/me`, {
     method: "GET",
     credentials: 'include',
     headers: {

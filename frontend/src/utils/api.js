@@ -7,11 +7,11 @@ class Api {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return Promise.reject(`Ошибка: ${ res.status }`);
   }
 
   getUserInfoApi() {
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${ this._url }/users/me`, {
       method: "GET",
       credentials: 'include',
       headers: {
@@ -22,7 +22,7 @@ class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this._url}/cards`, {
+    return fetch(`${ this._url }/cards`, {
       method: "GET",
       credentials: 'include',
       headers: {
@@ -33,7 +33,7 @@ class Api {
   }
 
   setUserInfoApi(name, job) {
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${ this._url }/users/me`, {
       method: 'PATCH',
       credentials: 'include',
       headers: {
@@ -48,7 +48,7 @@ class Api {
   }
 
   addNewElement(item) {
-    return fetch(`${this._url}/cards`, {
+    return fetch(`${ this._url }/cards`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -63,7 +63,7 @@ class Api {
   }
 
   changeLikeCardStatus(cardId, isLiked) {
-    return fetch(`${this._url}/cards/likes/${cardId}`, {
+    return fetch(`${ this._url }/cards/likes/${ cardId }`, {
       method: isLiked ? 'PUT' : 'DELETE',
       credentials: 'include',
       headers: {
@@ -74,7 +74,7 @@ class Api {
   }
 
   deleteElement(id) {
-    return fetch(`${this._url}/cards/${id}`, {
+    return fetch(`${ this._url }/cards/${ id }`, {
       method: 'DELETE',
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +85,7 @@ class Api {
   }
 
   changeAvatar(item) {
-    return fetch(`${this._url}/users/me/avatar`, {
+    return fetch(`${ this._url }/users/me/avatar`, {
       method: 'PATCH',
       credentials: 'include',
       headers: {
