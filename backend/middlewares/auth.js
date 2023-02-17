@@ -1,7 +1,10 @@
 import jwt from 'jsonwebtoken';
 import UnauthorizedError from '../errors/UnauthorizedError.js';
 
-export const { JWT_SECRET = 'bdafc34bb7ca95383226b7a46f7e846fb57e0de2c18991828b40129d9b13c183' } = process.env;
+const {
+  NODE_ENV,
+  JWT_SECRET,
+} = process.env;
 
 function auth(req, res, next) {
   const { cookies } = req;
@@ -11,7 +14,7 @@ function auth(req, res, next) {
     let payload;
 
     try {
-      payload = jwt.verify(token, JWT_SECRET);
+      payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret');
     } catch (e) {
       next(new UnauthorizedError('Передан не верифицированый токен'));
     }

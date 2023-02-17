@@ -8,8 +8,11 @@ import UnauthorizedError from '../errors/UnauthorizedError.js';
 import NotFoundError from '../errors/NotFoundError.js';
 import BadRequestError from '../errors/BadRequestError.js';
 import ConflictError from '../errors/ConflictError.js';
-import { JWT_SECRET } from "../middlewares/auth.js";
 
+const {
+  NODE_ENV,
+  JWT_SECRET,
+} = process.env;
 
 export function getUsers(req, res, next) {
   User.find({})
@@ -134,7 +137,7 @@ export function login(req, res, next) {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        JWT_SECRET,
+        NODE_ENV === 'production' ? JWT_SECRET : 'super-strong-secret',
         { expiresIn: '7d' },
       );
       return res.cookie('jwt', token, {
